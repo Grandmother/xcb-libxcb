@@ -76,6 +76,7 @@ void my_example(xcb_connection *conn, xcb_window_t window) {
     /* ... of course your event loop would not be in the same function ... */
     while ((event = xcb_wait_for_event(conn)) != NULL) {
         if (event->response_type == 0) {
+            xcb_generic_error_t *error = (xcb_generic_error_t *)event;
             fprintf("Received X11 error %d\\n", error->error_code);
             free(event);
             continue;
